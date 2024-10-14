@@ -17,12 +17,47 @@ function getPlayerChoice() {
   }
 }
 
-function playRound(computerChoice, playerChoice) {}
+function playRound(computerChoice, playerChoice) {
+  computerChoice = getComputerChoice();
+  playerChoice = getPlayerChoice();
+  if (computerChoice === playerChoice) {
+    alert('Tie round!');
+  } else if (
+    (computerChoice === 'rock' && playerChoice === 'scissors') ||
+    (computerChoice === 'scissors' && playerChoice === 'paper') ||
+    (computerChoice === 'paper' && playerChoice === 'rock')
+  ) {
+    alert(`You lose that round: ${computerChoice} beats ${playerChoice}!`);
+    computerScore++;
+    alert(
+      `The computer has ${computerScore} points. You have ${playerScore} points.`
+    );
+  } else {
+    alert(`You win that round: ${playerChoice} beats ${computerChoice}!`);
+    playerScore++;
+    alert(
+      `You have ${playerScore} points. The computer has ${computerScore} points.`
+    );
+  }
+}
 
 let computerScore = 0;
 let playerScore = 0;
+let computerChoice = '';
+let playerChoice = '';
 
-let computerChoice = getComputerChoice();
-let playerChoice = getPlayerChoice();
-console.log(`the CPU picked ${computerChoice}`);
-console.log(`the player picked ${playerChoice}`);
+function playGame() {
+  while (computerScore < 5 && playerScore < 5) {
+    playRound(computerChoice, playerChoice);
+  }
+
+  if (computerScore === 5) {
+    alert('You lose the entire game, loser!');
+  }
+
+  if (playerScore === 5) {
+    alert('You win the whole game, winner!');
+  }
+}
+
+playGame();
