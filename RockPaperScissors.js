@@ -8,7 +8,9 @@ function getComputerChoice() {
 
 function getPlayerChoice() {
   while (true) {
-    const choice = prompt('Rock, Paper, or Scissors?').toLowerCase();
+    const choice = prompt(
+      `Rock, Paper, or Scissors? (Round ${roundNumber}/5)`
+    ).toLowerCase();
     if (choice === 'rock' || choice === 'paper' || choice === 'scissors') {
       return choice;
     } else {
@@ -22,6 +24,7 @@ function playRound(computerChoice, playerChoice) {
   playerChoice = getPlayerChoice();
   if (computerChoice === playerChoice) {
     alert('Tie round!');
+    roundNumber++;
   } else if (
     (computerChoice === 'rock' && playerChoice === 'scissors') ||
     (computerChoice === 'scissors' && playerChoice === 'paper') ||
@@ -29,12 +32,14 @@ function playRound(computerChoice, playerChoice) {
   ) {
     alert(`You lose that round: ${computerChoice} beats ${playerChoice}!`);
     computerScore++;
+    roundNumber++;
     alert(
       `The computer has ${computerScore} points. You have ${playerScore} points.`
     );
   } else {
     alert(`You win that round: ${playerChoice} beats ${computerChoice}!`);
     playerScore++;
+    roundNumber++;
     alert(
       `You have ${playerScore} points. The computer has ${computerScore} points.`
     );
@@ -43,21 +48,19 @@ function playRound(computerChoice, playerChoice) {
 
 let computerScore = 0;
 let playerScore = 0;
-let computerChoice = '';
-let playerChoice = '';
+let roundNumber = 1;
 
 function playGame() {
-  while (computerScore < 5 && playerScore < 5) {
-    playRound(computerChoice, playerChoice);
-  }
-
-  if (computerScore === 5) {
-    alert('You lose the entire game, loser!');
-  }
-
-  if (playerScore === 5) {
-    alert('You win the whole game, winner!');
+  for (let i = 0; i < 5; i++) {
+    playRound();
   }
 }
 
 playGame();
+if (computerScore > playerScore) {
+  alert('You lose the game!');
+} else if (playerScore > computerScore) {
+  alert('You win the game!');
+} else {
+  alert('Tie game!');
+}
