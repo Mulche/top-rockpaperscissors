@@ -6,30 +6,9 @@ function getComputerChoice() {
   return choice;
 }
 
-function getPlayerChoice(e) {
-  const choice = e.target.className;
-  return choice;
-
-  // while (true) {
-  //   const choice = prompt(
-  //     `Rock, Paper, or Scissors? (Round ${roundNumber}/5)`
-  //   ).toLowerCase();
-  //   if (choice === 'rock' || choice === 'paper' || choice === 'scissors') {
-  //     return choice;
-  //   } else {
-  //     alert('Choose Rock, Paper, or Scissors!');
-  //   }
-  // }
-}
-
 function playRound(e) {
   const computerChoice = getComputerChoice();
   const playerChoice = e.target.className;
-
-  const round = document.querySelector('.round');
-  const playerScoreDiv = document.querySelector('.playerScore');
-  const computerScoreDiv = document.querySelector('.computerScore');
-  const results = document.querySelector('.results');
 
   results.innerHTML = '';
 
@@ -40,11 +19,12 @@ function playRound(e) {
   const computerWin = document.createElement('div');
   computerWin.textContent = `You lose that round: ${computerChoice} beats ${playerChoice}!`;
 
+  // Tie
   if (computerChoice === playerChoice) {
     results.appendChild(tieRound);
-    console.log('Tie round!');
     roundNumber++;
     round.textContent = `ROUND ${roundNumber}`;
+    // Computer Win
   } else if (
     (computerChoice === 'rock' && playerChoice === 'scissors') ||
     (computerChoice === 'scissors' && playerChoice === 'paper') ||
@@ -55,14 +35,42 @@ function playRound(e) {
     roundNumber++;
     computerScoreDiv.textContent = `Computer Score: ${computerScore}`;
     round.textContent = `ROUND ${roundNumber}`;
+    // Player Win
   } else {
     results.appendChild(playerWin);
-    console.log(`You win that round: ${playerChoice} beats ${computerChoice}!`);
     playerScore++;
     playerScoreDiv.textContent = `Player Score: ${playerScore}`;
     roundNumber++;
     round.textContent = `ROUND ${roundNumber}`;
   }
+  if (playerScore === 5 ) {
+    rockButton.remove();
+    paperButton.remove();
+    scissorsButton.remove();
+    body.insertBefore(restartButton, round);
+    results.textContent = 'You win!!!'
+  }
+  if (computerScore === 5) {
+    rockButton.remove();
+    paperButton.remove();
+    scissorsButton.remove();
+    body.insertBefore(restartButton, round);
+    results.textContent = 'You lose!!!'
+  }
+}
+
+function restartGame () {
+  restartButton.remove()
+  body.insertBefore(rockButton, round);
+  body.insertBefore(paperButton, round);
+  body.insertBefore(scissorsButton, round);
+  playerScore = 0;
+  computerScore = 0;
+  roundNumber = 0;
+  playerScoreDiv.textContent = 'Player Score: 0';
+  computerScoreDiv.textContent = 'Computer Score: 0';
+  round.textContent = 'ROUND 1';
+  results.textContent = '';
 }
 
 // Initialize score/round variables
@@ -71,34 +79,44 @@ let computerScore = 0;
 let playerScore = 0;
 let roundNumber = 1;
 
-// Initialize button references and event listeners
+// Initialize references and event listeners
 
 const rockButton = document.querySelector('.rock');
 const paperButton = document.querySelector('.paper');
 const scissorsButton = document.querySelector('.scissors');
 
+const restartButton = document.createElement('button');
+restartButton.textContent = 'RESTART';
+
+const body = document.querySelector('body');
+const results = document.querySelector('.results');
+const round = document.querySelector('.round');
+
+const playerScoreDiv = document.querySelector('.playerScore');
+const computerScoreDiv = document.querySelector('.computerScore');
+
 rockButton.addEventListener('click', playRound);
 paperButton.addEventListener('click', playRound);
 scissorsButton.addEventListener('click', playRound);
+restartButton.addEventListener('click', restartGame);
+
 
 // Create container div reference for DOM manipulation
 
-const results = document.querySelector('.results');
+const debug = document.querySelector('.debug');
 
-function playGame() {
-  for (let i = 0; i < 5; i++) {
-    playRound();
-  }
-  while (playerScore === computerScore) {
-    playRound();
-  }
-}
 
-playGame();
-if (computerScore > playerScore) {
-  alert('You lose the game!');
-} else if (playerScore > computerScore) {
-  alert('You win the game!');
-} else {
-  alert('Tie game!');
-}
+
+// Detect Game Over
+// if (playerScore === 5 ) {
+//   rockButton.innerHTML = '';
+//   paperButton.innerHTML = '';
+//   scissorsButton.innerHTML = '';
+//   alert('player win');
+// }
+// if (computerScore === 5) {
+//   rockButton.innerHTML = '';
+//   paperButton.innerHTML = '';
+//   scissorsButton.innerHTML = '';
+//   alert('computer win');
+// }
