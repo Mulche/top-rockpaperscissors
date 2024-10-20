@@ -1,0 +1,59 @@
+* {
+    background-color: rgb(45, 75, 57);
+    color: rgb(222, 210, 210);
+    font-family: Arial, Helvetica, sans-serif
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+button {
+    background-color: rgb(76, 54, 54);
+    border-radius: 10px;
+    width: 200px;
+    height: 50px;
+    border: 2px solid rgb(3, 23, 3);
+}
+
+button:active {
+    background-color: rgb(42, 34, 34);
+}
+
+.results {
+    font-size: 22px;
+    font-weight: 900;
+}
+
+.round {
+    font-size: 30px;
+    font-weight: 900;
+    background-color: rgb(15, 30, 25);
+    border: 2px solid black;
+    border-radius: 5px;
+    padding: 3px 12px;
+}
+
+.playerScore {
+    color: rgb(155, 155, 230);
+}
+
+.computerScore {
+    color: rgb(219, 153, 153);
+}
+
+.rock {
+    color: rgb(196, 196, 196);
+}
+
+.paper {
+    color: white;
+}
+
+.scissors {
+    color: rgb(222, 185, 185);
+}
