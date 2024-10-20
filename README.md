@@ -1,9 +1,5 @@
-A simple console-based Rock Paper Scissors game made in JavaScript.
+A Rock Paper Scissors game using HTML, CSS, and JavaScript.
 
-My pseudocode is as follows:
+Using event listeners and DOM manipulation, a GUI displays the current round, score, and eventually the winner of the game.
 
-1. Have "computer" randomly select rock, paper, or scissors
-2. Prompt user to select their choice
-3. Run a series of conditionals to determine the winner
-4. Increment a score variable for the winner
-5. Repeat rounds until the player or the computer have 5 wins
+First to 5 points wins, after which a "RESTART" button appears.
